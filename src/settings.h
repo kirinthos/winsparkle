@@ -131,6 +131,15 @@ public:
         return false;
     }
 
+	// XXX: Duo Modified
+	/// Returns the SHA algorithm for signature verification
+	static int GetSHAAlgorithm()
+	{
+		CriticalSectionLocker lock(ms_csVars);
+		return ms_SHAAlgorithm;
+	}
+	// XXX: End Duo Modified
+
     //@}
 
     /**
@@ -219,6 +228,11 @@ public:
 
     /// Set PEM data and verify in contains valid DSA public key
     static void SetDSAPubKeyPem(const std::string &pem);
+
+	// XXX: Duo Modified
+	/// Set SHA hashing algorithm for signature verification
+	static void SetSHAAlgorithm(const unsigned int algorithm);
+	// XXX: End Duo Modified
     //@}
 
 
@@ -323,6 +337,10 @@ private:
     static std::wstring ms_appVersion;
     static std::wstring ms_appBuildVersion;
     static std::string  ms_DSAPubKey;
+
+	// XXX: Duo Modified
+	static unsigned int ms_SHAAlgorithm;
+	// XXX: End Duo Modified
 };
 
 } // namespace winsparkle
