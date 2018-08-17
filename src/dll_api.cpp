@@ -161,6 +161,27 @@ WIN_SPARKLE_API int __cdecl win_sparkle_set_dsa_pub_pem(const char *dsa_pub_pem)
     return 0;
 }
 
+// XXX: Duo Modified
+/// provided in this form so that C# can use this without having to do some magic around defines
+WIN_SPARKLE_API void __cdecl win_sparkle_set_sha_algorithm_to_sha256()
+{
+	try
+	{
+		Settings::SetSHAAlgorithm(CALG_SHA_256);
+	}
+	CATCH_ALL_EXCEPTIONS;
+}
+
+WIN_SPARKLE_API void __cdecl win_sparkle_set_sha_algorithm_to_sha512()
+{
+	try
+	{
+		Settings::SetSHAAlgorithm(CALG_SHA_512);
+	}
+	CATCH_ALL_EXCEPTIONS;
+}
+// XXX: End Duo Modified
+
 WIN_SPARKLE_API void __cdecl win_sparkle_set_app_details(const wchar_t *company_name,
                                                          const wchar_t *app_name,
                                                          const wchar_t *app_version)

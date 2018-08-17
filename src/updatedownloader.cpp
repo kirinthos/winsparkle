@@ -177,12 +177,23 @@ void UpdateDownloader::Run()
       Settings::WriteConfigValue("UpdateTempDir", tmpdir);
 
       UpdateDownloadSink sink(*this, tmpdir);
-      DownloadFile(m_appcast.DownloadURL, &sink, this);
+
+      // XXX: Duo Modified 
+      // stitch in the base url from the appcast url if the argument is relative
+      std::string url = m_appcast.DownloadURL;
+      if (url.find("://") == std::string::npos)
+      {
+          std::string appurl = Settings::GetAppcastURL();
+          appurl = appurl.substr(0, appurl.rfind('/') + 1);
+          url = appurl + url;
+      }
+      DownloadFile(url, &sink, this);
+      // XXX: End Duo Modified 
       sink.Close();
 
       if (Settings::HasDSAPubKeyPem())
       {
-          SignatureVerifier::VerifyDSASHA1SignatureValid(sink.GetFilePath(), m_appcast.DsaSignature);
+          SignatureVerifier::VerifyDSASHASignatureValid(sink.GetFilePath(), m_appcast.DsaSignature);
       }
       else
       {

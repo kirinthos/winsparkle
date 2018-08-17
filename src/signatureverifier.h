@@ -45,10 +45,10 @@ public:
     // Throws an exception if pem is not a valid DSA public key in PEM format
     static void VerifyDSAPubKeyPem(const std::string &pem);
 
-    // Verify DSA signature of SHA1 hash of the file. Equivalent to:
-    // openssl dgst -sha1 -binary < filename | openssl dgst -sha1 -verify dsa_pub.pem -signature signature.bin
+    // Verify DSA signature of SHA512 hash of the file. Equivalent to:
+    // openssl dgst -sha512 -binary < filename | openssl dgst -sha512 -verify dsa_pub.pem -signature signature.bin
     // Throws BadSignatureException on failure.
-    static void VerifyDSASHA1SignatureValid(const std::wstring &filename, const std::string &signature_base64);
+    static void VerifyDSASHASignatureValid(const std::wstring &filename, const std::string &signature_base64);
 };
 
 } // namespace winsparkle

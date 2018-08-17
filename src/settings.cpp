@@ -43,6 +43,7 @@ std::wstring Settings::ms_appName;
 std::wstring Settings::ms_appVersion;
 std::wstring Settings::ms_appBuildVersion;
 std::string Settings::ms_DSAPubKey;
+unsigned int Settings::ms_SHAAlgorithm = CALG_SHA1;
 
 
 /*--------------------------------------------------------------------------*
@@ -348,5 +349,13 @@ void Settings::SetDSAPubKeyPem(const std::string &pem)
     SignatureVerifier::VerifyDSAPubKeyPem(pem);
     ms_DSAPubKey = pem;
 }
+
+// XXX: Duo Modified
+void Settings::SetSHAAlgorithm(const unsigned int algorithm)
+{
+	CriticalSectionLocker lock(ms_csVars);
+	ms_SHAAlgorithm = algorithm;
+}
+// XXX: End Duo Modified
 
 } // namespace winsparkle
